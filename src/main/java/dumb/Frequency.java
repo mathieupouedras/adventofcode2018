@@ -12,12 +12,15 @@ public class Frequency {
         int count = 0;
         for (String line: lines) {
             String operator = line.substring(0, 1);
-            int amount = Integer.valueOf(line.substring(1, line.length() - 1));
+            int amount = Integer.valueOf(line.substring(1, line.length()));
             switch (operator) {
-                case "+": count += amount;
-                case "-": count -= amount;
+                case "+": count += amount;break;
+                case "-": count -= amount;break;
+                default: throw new RuntimeException("invalid operator");
             }
         }
+
+        System.out.println(count);
 
     }
 
