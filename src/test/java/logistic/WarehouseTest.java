@@ -1,8 +1,11 @@
 package logistic;
 
+import domain.BoxRepository;
+import infrastructure.BoxFileRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -37,6 +40,16 @@ public class WarehouseTest {
 
         assertThat(checksum, is(12));
 
+    }
+
+    @Test
+    public void computeSolution() {
+        BoxRepository boxRepository = new BoxFileRepository();
+        Box[] boxes = boxRepository.readAll();
+
+        Warehouse warehouse = new Warehouse(Arrays.asList(boxes));
+
+        System.out.println(warehouse.checksum());
     }
 
 }

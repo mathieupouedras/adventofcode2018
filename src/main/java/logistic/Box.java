@@ -4,7 +4,7 @@ public class Box {
 
     private final String id;
 
-    Box(String id) {
+    public Box(String id) {
         this.id = id;
     }
 
