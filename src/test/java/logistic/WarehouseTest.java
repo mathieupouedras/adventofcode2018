@@ -43,7 +43,7 @@ public class WarehouseTest {
     }
 
     @Test
-    public void computeSolution() {
+    public void part1() {
         BoxRepository boxRepository = new BoxFileRepository();
         Box[] boxes = boxRepository.readAll();
 
@@ -52,4 +52,45 @@ public class WarehouseTest {
         System.out.println(warehouse.checksum());
     }
 
-}
+    @Test
+    public void should_find_correct_boxes() {
+
+        Box box1 = new Box("abcde");
+        Box box2 = new Box("fghij");
+        Box box3 = new Box("klmno");
+        Box box4 = new Box("pqrst");
+        Box box5 = new Box("fguij");
+        Box box6 = new Box("axcye");
+        Box box7 = new Box("wvxyz");
+
+        List<Box> boxes = new ArrayList<Box>();
+        boxes.add(box1);
+        boxes.add(box2);
+        boxes.add(box3);
+        boxes.add(box4);
+        boxes.add(box5);
+        boxes.add(box6);
+        boxes.add(box7);
+
+
+        Warehouse warehouse = new Warehouse(boxes);
+
+        String correctLetters = warehouse.findCorrectLetters();
+
+        assertThat(correctLetters, is("fgij"));
+
+    }
+
+    @Test
+    public void part2() {
+        BoxRepository boxRepository = new BoxFileRepository();
+        Box[] boxes = boxRepository.readAll();
+
+        Warehouse warehouse = new Warehouse(Arrays.asList(boxes));
+
+        System.out.println(warehouse.findCorrectLetters());
+
+    }
+
+
+    }

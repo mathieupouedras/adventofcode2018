@@ -4,6 +4,10 @@ public class Box {
 
     private final String id;
 
+    public String getId() {
+        return id;
+    }
+
     public Box(String id) {
         this.id = id;
     }
@@ -24,4 +28,23 @@ public class Box {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "Box{" +
+                "id='" + id + '\'' +
+                '}';
+    }
+
+    public boolean isAlmostIdentical(Box other) {
+        int identicalLetters = 0;
+        for (int i = 0; i < this.id.length(); i ++) {
+            if (this.getId().toCharArray()[i] == other.getId().toCharArray()[i]) {
+                identicalLetters ++;
+            }
+        }
+
+        return identicalLetters == this.id.length() -1;
+
+
+    }
 }
