@@ -7,6 +7,16 @@ class Action {
     private final boolean isNewShift;
     private final boolean isFallingASleep;
 
+    public void setGuardID(int guardID) {
+        this.guardID = guardID;
+    }
+
+    public int getGuardID() {
+        return guardID;
+    }
+
+    private int guardID;
+
     public LocalDateTime getDate() {
         return date;
     }
