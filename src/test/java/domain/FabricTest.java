@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 public class FabricTest {
 
@@ -97,8 +98,7 @@ public class FabricTest {
 
         Fabric fabric = new Fabric(11, claims);
 
-        fabric.createRepresentation();
-        assertThat(fabric.computeConflictInches(), is(4));
+        System.out.println(fabric.noConflict());
     }
 
     @Test
@@ -109,8 +109,20 @@ public class FabricTest {
         Fabric fabric = new Fabric(1000, claims);
         fabric.createRepresentation();
 
-        System.out.println(fabric.computeConflictInches());
+        //System.out.println(fabric.computeConflictInches());
 
     }
+
+    @Test
+    public void part2() {
+        ClaimRepository claimRepository = new FileClaimRepository();
+        List<Claim> claims = claimRepository.readAll();
+
+        Fabric fabric = new Fabric(1000, claims);
+
+        System.out.println(fabric.noConflict());
+
+    }
+
 
 }

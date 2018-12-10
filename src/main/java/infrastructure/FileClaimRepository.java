@@ -27,6 +27,7 @@ public class FileClaimRepository implements ClaimRepository {
         for (String line : lines) {
             ClaimBuilder claimBuilder = new ClaimBuilder();
             String[] tokens = line.split(" ");
+            String id = tokens[0];
             String position = tokens[2];
             String dimension = tokens[3];
 
@@ -35,6 +36,8 @@ public class FileClaimRepository implements ClaimRepository {
 
             claimBuilder.width(Integer.valueOf(dimension.split("x")[0]));
             claimBuilder.height(Integer.valueOf(dimension.split("x")[1]));
+
+            claimBuilder.id(Integer.valueOf(id.substring(1, id.length())));
 
             claims.add(claimBuilder.build());
         }

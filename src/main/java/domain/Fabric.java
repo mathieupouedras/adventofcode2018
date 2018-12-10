@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Fabric {
@@ -7,14 +8,14 @@ public class Fabric {
     private final int size;
     private final List<Claim> claims;
     private final char[][] gridRepresentation;
-    private final int[][] conficts;
+    private final List<Claim>[][] conficts;
 
 
     public Fabric(int size, List<Claim> claims) {
         this.size = size;
         this.claims = claims;
         this.gridRepresentation = new char[size][size];
-        conficts = new int[size][size];
+        conficts = new List[size][size];
     }
 
     String createRepresentation() {
@@ -24,7 +25,7 @@ public class Fabric {
             for (int j = 0; j < claim.getHeight(); j++) {
                 for (int i = 0; i < claim.getWidth(); i++) {
                     gridRepresentation[i + claim.getInchesToLeftEdge()][j + claim.getInchesToTopEdge()] = '#';
-                    conficts[i + claim.getInchesToLeftEdge()][j + claim.getInchesToTopEdge()] = conficts[i + claim.getInchesToLeftEdge()][j + claim.getInchesToTopEdge()] + 1;
+                    conficts[i + claim.getInchesToLeftEdge()][j + claim.getInchesToTopEdge()].add(claim);
                 }
             }
         }
@@ -48,6 +49,7 @@ public class Fabric {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 gridRepresentation[j][i] = '.';
+                conficts[i][j] = new ArrayList();
             }
         }
     }
@@ -57,16 +59,26 @@ public class Fabric {
         return createRepresentation();
     }
 
-    int computeConflictInches() {
-        int count = 0;
-        for (int i = 0; i < size; i++) {
-            for (int j =0; j < size; j++) {
-                if (conficts[i][j] > 1) {
-                    count++;
+
+    int noConflict() {
+        createRepresentation();
+
+        for (Claim claim: claims) {
+            boolean claimok = true;
+            for (int j = 0; j < claim.getHeight(); j++) {
+                for (int i = 0; i < claim.getWidth(); i++) {
+                    if (conficts[i + claim.getInchesToLeftEdge()][j + claim.getInchesToTopEdge()].size() > 1) {
+                        claimok = false;
+                    }
+
                 }
             }
+            if (claimok) {
+                return claim.getId();
+            }
         }
-        return count;
+
+        throw new RuntimeException("all claims have conflict");
     }
 
 }
