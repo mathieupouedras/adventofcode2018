@@ -2,7 +2,46 @@ package domain;
 
 import java.util.*;
 
+import static domain.Status.TO_BE_DONE;
+
 class Step {
+
+    private int duration;
+
+    public void setStartedSecond(int startedSecond) {
+        this.startedSecond = startedSecond;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public int getStartedSecond() {
+        return startedSecond;
+    }
+
+    private int startedSecond = 0;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    private Status status;
+
+    public int getDuration() {
+        return duration;
+    }
+
+    int duration() {
+        int count = 1;
+        for(char c = 'A'; c < 'Z'; c++) {
+            if (this.name.equalsIgnoreCase(String.valueOf(c))) {
+                break;
+            }
+            count++;
+        }
+        return count;
+    }
 
     public String getName() {
         return name;
@@ -42,6 +81,8 @@ class Step {
         this.name = name;
         this.children = new HashSet();
         this.parents = new ArrayList<>();
+        this.duration = duration();
+        this.status = TO_BE_DONE;
     }
 
     public void addChild(Step child) {
